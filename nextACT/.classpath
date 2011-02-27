@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" output="test-classes" path="test"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/geronimo-jta_1.1_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/neo4j-com-1.3.M03.jar"/>
+	<classpathentry kind="lib" path="lib/neo4j-kernel-1.3.M03.jar"/>
+	<classpathentry kind="lib" path="lib/neo4j-lucene-index-1.3.M03.jar"/>
+	<classpathentry kind="lib" path="lib/neo4j-graph-algo-1.3.M03.jar"/>
+	<classpathentry kind="lib" path="lib/neo4j-management-1.3.M03.jar"/>
+	<classpathentry kind="lib" path="lib/netty-3.2.1.Final.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.servicemix.bundles.jline-0.9.94_1.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.servicemix.bundles.lucene-3.0.1_2.jar"/>
+	<classpathentry kind="lib" path="lib/zookeeper-3.3.2.jar"/>
+	<classpathentry kind="output" path="war/WEB-INF/classes"/>
+</classpath>
