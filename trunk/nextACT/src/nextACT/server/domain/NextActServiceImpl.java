@@ -1,5 +1,9 @@
 package nextACT.server.domain;
 
+import nextACT.domain.Activity;
+import nextACT.domain.User;
+import nextACT.server.domain.nodes.ActivityImpl;
+import nextACT.server.domain.nodes.UserImpl;
 import nextACT.server.domain.relationships.ActivityOwnership;
 import nextACT.server.domain.relationships.ActivityOwnershipImpl;
 import nextACT.server.domain.relationships.Invitation;
@@ -9,6 +13,7 @@ import nextACT.server.domain.relationships.ParticipationImpl;
 
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.NotFoundException;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.Transaction;
@@ -18,14 +23,49 @@ import org.neo4j.graphdb.index.IndexHits;
 
 public class NextActServiceImpl implements NextActService {
 
-    private GraphDatabaseService graphDbService;
-    private Index<Node> userIndex = graphDbService.index().forNodes("users");
-    //TODO: create a more sophisticated user index
-    private Index<Node> activityIndex = graphDbService.index().forNodes("activities");
-    //TODO: create a more sophisticated activities index
+	private static final NextActServiceImpl INSTANCE = new NextActServiceImpl();
+	
+    private GraphDatabaseService graphDbService = null;
+    private Index<Node> userIndex = null;
+    private Index<Node> activityIndex = null;
+    
+    private static enum BasicRelationshipTypes implements RelationshipType {
+		INCOMING,
+		OUTGOING
+	}
+    
+    // in neo4j node ids are not unique over time - so we have generate custom, sequencial ones..
+    private static final String KEY_COUNTER = "counter";
+    private synchronized long getNextId()
+    {
+    	Long counter = null;
+	    try {
+	    	counter = ( Long ) graphDbService.getReferenceNode().getProperty(KEY_COUNTER);
+	    }
+	    catch (NotFoundException e) {
+	        // create a new counter
+	        counter = 0L;
+	    }
+	     
+	    graphDbService.getReferenceNode().setProperty(KEY_COUNTER, new Long(counter + 1));
+	    return counter;
+    }
+    
+    public static void initService(GraphDatabaseService graphDbService) {
+    	INSTANCE.graphDbService = graphDbService;
+    	INSTANCE.userIndex = graphDbService.index().forNodes("users");
+    	//TODO: create a more sophisticated user index
+    	INSTANCE.activityIndex = graphDbService.index().forNodes("activities");
+    	//TODO: create a more sophisticated activities index
+    }
+    
+    public static NextActService getInstance() {
+    	return INSTANCE;
+    }
+  
     
 	@Override
-	public Activity createActivity(long id, long facebookId, boolean isNative,
+	public Activity createActivity(long facebookId, boolean isNative,
 			String name, String description, String locationName,
 			String locationCity, long startDate, long endDate,
 			double longitude, long latitude, int participantLimit) {
@@ -43,7 +83,10 @@ public class NextActServiceImpl implements NextActService {
         	final Activity activity = new ActivityImpl(activityNode);
         	
         	// add all the properties
+        	// use a newly created id...
+        	long id = this.getNextId();
         	activity.setId(id);
+        	activity.setVersion(1);
         	activity.setFacebookId(facebookId);
         	activity.setIsNative(isNative);
         	activity.setName(name);
@@ -79,14 +122,18 @@ public class NextActServiceImpl implements NextActService {
 
 	@Override
 	public Activity getActivity(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Activity activity = null;
+		IndexHits<Node> matchingActivities = activityIndex.get("id", id);
+		Node activityNode = matchingActivities.getSingle();
+		
+		if(activityNode != null) {
+			activity = new ActivityImpl(activityNode);
+		}
+		
+		return activity;
 	}
 	
-	private static enum BasicRelationshipTypes implements RelationshipType {
-		INCOMING,
-		OUTGOING
-	}
+	
 
 	@Override
 	public User createUser(long id, long facebookID, String lastName,

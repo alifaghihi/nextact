@@ -1,4 +1,8 @@
-package nextACT.server.domain;
+	package nextACT.server.domain.nodes;
+
+
+import nextACT.domain.Activity;
+import nextACT.domain.User;
 
 import org.neo4j.graphdb.Node;
 
@@ -6,6 +10,7 @@ public class ActivityImpl implements Activity {
 
     private static final String ID_PROPERTY = "id";
     private static final String FACEBOOKID_PROPERTY = "facebookID";
+    private static final String VERSION_PROPERTY = "version";
     private static final String ISNATIVE_PROPERTY = "isNative";
     private static final String NAME_PROPERTY = "name";
     private static final String DESCRIPTION_PROPERTY = "description";
@@ -25,7 +30,7 @@ public class ActivityImpl implements Activity {
 		this.underlyingNode = node;
 	}
 	
-	Node getUnderlyingNode() {
+	public Node getUnderlyingNode() {
 		return this.underlyingNode;
 	}
 
@@ -37,6 +42,17 @@ public class ActivityImpl implements Activity {
 	@Override
 	public void setId(long id) {
 		underlyingNode.setProperty(ID_PROPERTY, id);
+	}
+	
+	@Override
+	public long getVersion() {
+		return (Long) underlyingNode.getProperty(VERSION_PROPERTY);
+	}
+	
+	@Override
+	public
+	void setVersion(long version) {
+		underlyingNode.setProperty(VERSION_PROPERTY, version);
 	}
 
 	@Override
