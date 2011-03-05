@@ -2,10 +2,10 @@ package nextACT.server.domain.relationships;
 
 import org.neo4j.graphdb.Relationship;
 
-import nextACT.server.domain.Activity;
-import nextACT.server.domain.ActivityImpl;
-import nextACT.server.domain.User;
-import nextACT.server.domain.UserImpl;
+import nextACT.domain.Activity;
+import nextACT.domain.User;
+import nextACT.server.domain.nodes.ActivityImpl;
+import nextACT.server.domain.nodes.UserImpl;
 
 public class ParticipationImpl implements Participation {
 

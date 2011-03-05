@@ -1,6 +1,9 @@
-package nextACT.server.domain;
+package nextACT.domain;
 
 import java.util.Date;
+
+
+
 
 public interface Activity {
 	// own attributes
@@ -9,6 +12,9 @@ public interface Activity {
 	
 	long getFacebookId();
 	void setFacebookId(long facebookId);
+	
+	long getVersion();
+	void setVersion(long version);
 	
 	boolean isNative();
 	void setIsNative(boolean isNative);

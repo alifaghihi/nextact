@@ -1,4 +1,8 @@
-package nextACT.server.domain;
+package nextACT.server.domain.nodes;
+
+
+import nextACT.domain.Activity;
+import nextACT.domain.User;
 
 import org.neo4j.graphdb.Node;
 
@@ -22,7 +26,7 @@ public class UserImpl implements User {
 		this.underlyingNode = node;
 	}
 	
-	Node getUnderlyingNode() {
+	public Node getUnderlyingNode() {
 		return this.underlyingNode;
 	}
 	

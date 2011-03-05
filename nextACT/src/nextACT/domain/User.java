@@ -1,4 +1,7 @@
-package nextACT.server.domain;
+package nextACT.domain;
+
+
+
 
 public interface User {
 	// own attributes
