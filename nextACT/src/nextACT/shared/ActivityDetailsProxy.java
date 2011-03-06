@@ -14,7 +14,7 @@ public interface ActivityDetailsProxy extends EntityProxy {
 	
 	long getVersion();
 	
-	boolean isNative();
+	boolean getIsNative();
 	void setIsNative(boolean isNative);
 	
 	String getName();

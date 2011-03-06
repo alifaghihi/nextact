@@ -16,7 +16,7 @@ public interface Activity {
 	long getVersion();
 	void setVersion(long version);
 	
-	boolean isNative();
+	boolean getIsNative();
 	void setIsNative(boolean isNative);
 	
 	String getName();

@@ -66,7 +66,7 @@ public class ActivityImpl implements Activity {
 	}
 
 	@Override
-	public boolean isNative() {
+	public boolean getIsNative() {
 		return (Boolean) underlyingNode.getProperty(ISNATIVE_PROPERTY);
 	}
 
