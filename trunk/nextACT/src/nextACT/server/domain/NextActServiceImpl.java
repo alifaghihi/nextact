@@ -20,14 +20,39 @@ import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.IndexHits;
+import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 public class NextActServiceImpl implements NextActService {
 
 	private static final NextActServiceImpl INSTANCE = new NextActServiceImpl();
+	private static final String DB_PATH = "neo4j-store";
 	
     private GraphDatabaseService graphDbService = null;
     private Index<Node> userIndex = null;
     private Index<Node> activityIndex = null;
+    
+    private NextActServiceImpl() {
+    	// open the database and register a shutdown hook
+    	this.graphDbService =  new EmbeddedGraphDatabase(DB_PATH);
+    	
+        Runtime.getRuntime().addShutdownHook(new Thread()
+        {
+            @Override
+            public void run()
+            {
+            	graphDbService.shutdown();
+            }
+        } );
+        
+        this.userIndex = graphDbService.index().forNodes("users");
+    	//TODO: create a more sophisticated user index
+    	this.activityIndex = graphDbService.index().forNodes("activities");
+    	//TODO: create a more sophisticated activities index
+    }
+    
+    public synchronized static NextActService getInstance() {
+    	return INSTANCE;
+    }
     
     private static enum BasicRelationshipTypes implements RelationshipType {
 		INCOMING,
@@ -36,6 +61,8 @@ public class NextActServiceImpl implements NextActService {
     
     // in neo4j node ids are not unique over time - so we have generate custom, sequencial ones..
     private static final String KEY_COUNTER = "counter";
+    
+    
     private synchronized long getNextId()
     {
     	Long counter = null;
@@ -49,19 +76,7 @@ public class NextActServiceImpl implements NextActService {
 	     
 	    graphDbService.getReferenceNode().setProperty(KEY_COUNTER, new Long(counter + 1));
 	    return counter;
-    }
-    
-    public static void initService(GraphDatabaseService graphDbService) {
-    	INSTANCE.graphDbService = graphDbService;
-    	INSTANCE.userIndex = graphDbService.index().forNodes("users");
-    	//TODO: create a more sophisticated user index
-    	INSTANCE.activityIndex = graphDbService.index().forNodes("activities");
-    	//TODO: create a more sophisticated activities index
-    }
-    
-    public static NextActService getInstance() {
-    	return INSTANCE;
-    }
+    }  
   
     
 	@Override
