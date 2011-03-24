@@ -1,13 +1,113 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
-	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:p1="urn:import:com.google.gwt.user.datepicker.client">
 	<ui:style>
 		.important {
 			font-weight: bold;
 		}
 	</ui:style>
 	<g:HTMLPanel>
-		Hello,
-		<g:Button styleName="{style.important}" ui:field="button" width="249px" text="Just a Test" />
+		<g:TabPanel width="330px" height="639px">
+			<g:Tab text="ActivityDetails">
+				<g:AbsolutePanel width="310px" height="590px">
+					<g:at left="117" top="0">
+						<g:TextBox text="ActivityID" width="77px" height="17px" name="LoadID" ui:field="loadID"/>
+					</g:at>
+					<g:at left="20" top="14">
+						<g:Label text="Load Activity:" width="91px" height="17px"/>
+					</g:at>
+					<g:at left="209" top="0">
+						<g:Button width="89px" height="27px">Load</g:Button>
+					</g:at>
+					<g:at left="194" top="555">
+						<g:Button ui:field="saveButton">Save Changes</g:Button>
+					</g:at>
+					<g:at left="4" top="555">
+						<g:Button ui:field="createButton" width="138px" height="25px">Create New Activity</g:Button>
+					</g:at>
+					<g:at left="94" top="69">
+						<g:Label text="ID:"/>
+					</g:at>
+					<g:at left="68" top="209">
+						<g:Label text="Name:"/>
+					</g:at>
+					<g:at left="35" top="246">
+						<g:Label text="Description:"/>
+					</g:at>
+					<g:at left="29" top="106">
+						<g:Label text="Facebook ID:"/>
+					</g:at>
+					<g:at left="59" top="143">
+						<g:Label text="Version:"/>
+					</g:at>
+					<g:at left="47" top="172">
+						<g:Label text="Is Native:"/>
+					</g:at>
+					<g:at left="10" top="283">
+						<g:Label text="Location Name:"/>
+					</g:at>
+					<g:at left="25" top="316">
+						<g:Label text="Location City:"/>
+					</g:at>
+					<g:at left="40" top="357">
+						<g:Label text="Start Date:"/>
+					</g:at>
+					<g:at left="48" top="394">
+						<g:Label text="End Date:"/>
+					</g:at>
+					<g:at left="44" top="431">
+						<g:Label text="Longitude:"/>
+					</g:at>
+					<g:at left="55" top="466">
+						<g:Label text="Latitude:"/>
+					</g:at>
+					<g:at left="4" top="506">
+						<g:Label text="Participant Limit:"/>
+					</g:at>
+					<g:at left="117" top="269">
+						<g:TextBox text="Unknown Location" name="LocationName" ui:field="locationName"/>
+					</g:at>
+					<g:at left="117" top="55">
+						<g:LongBox readOnly="true" name="Id" ui:field="id"/>
+					</g:at>
+					<g:at left="117" top="92">
+						<g:LongBox name="FacebookID" ui:field="facebookID"/>
+					</g:at>
+					<g:at left="117" top="129">
+						<g:LongBox name="Version" ui:field="version"/>
+					</g:at>
+					<g:at left="117" top="166">
+						<g:SimpleCheckBox name="IsNative" ui:field="isNative"/>
+					</g:at>
+					<g:at left="117" top="195">
+						<g:TextBox text="Unknown Name" name="Name" ui:field="name"/>
+					</g:at>
+					<g:at left="117" top="232">
+						<g:TextBox text="No Description available" name="Description" ui:field="description"/>
+					</g:at>
+					<g:at left="117" top="306">
+						<g:TextBox text="Unknown City" name="LocationCity" ui:field="locationCity"/>
+					</g:at>
+					<g:at left="117" top="343">
+						<p1:DateBox ui:field="startDate"/>
+					</g:at>
+					<g:at left="117" top="380">
+						<p1:DateBox ui:field="endDate"/>
+					</g:at>
+					<g:at left="117" top="417">
+						<g:DoubleBox name="Longitude" ui:field="longitude"/>
+					</g:at>
+					<g:at left="117" top="458">
+						<g:DoubleBox name="Latitude" ui:field="latitude"/>
+					</g:at>
+					<g:at left="117" top="494">
+						<g:IntegerBox name="ParticipantLimit" ui:field="participantLimit"/>
+					</g:at>
+				</g:AbsolutePanel>
+			</g:Tab>
+			<g:Tab text="UserDetails">
+				<g:AbsolutePanel width="5cm" height="3cm"/>
+			</g:Tab>
+		</g:TabPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 
