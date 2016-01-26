@@ -1,0 +1,2 @@
+This website enables you to discover activites/events in your region and to create new ones by yourself! It is connected to Facebook, so if you create an event it is also created on Facebook too. Furthermore, it allows you to invite your friends from Facebook and to share pictures from activities. In contrast to Facebook, it allows for fine graded visibility settings an to download all pictures in high resolution - including geo information.
+From the technical point of view, it is realized with GWT, Google Maps and Neo4J.
